@@ -3,7 +3,7 @@
 In this workshop, you will transform parts of a static HTML product listing into a dynamic and interactive e-commerce page. You will use the `products.js` file as your data source.
 
 ## Prerequisites
-- Link `products.js` and a new `main.js` file in your `JS_Workshop.html`.
+- Link `products.js` and a new `main.js` file in your `index.html`.
 - Ensure you have the `products` array available in your global scope.
 
 ---
@@ -12,7 +12,7 @@ In this workshop, you will transform parts of a static HTML product listing into
 Instead of having hardcoded products in your HTML, you will generate them using JavaScript.
 
 ### Steps:
-1. Select the product grid container in `JS_Workshop.html` (add an `id="product-grid"` to the container if it doesn't have one).
+1. Select the product grid container in `index.html` (add an `id="product-grid"` to the container if it doesn't have one).
 2. Create a function `renderProducts(productsToRender)` that:
     - Clears the current content of the grid.
     - Loops through the provided array.

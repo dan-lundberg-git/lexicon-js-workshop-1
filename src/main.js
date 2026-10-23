@@ -11,10 +11,21 @@ const categoryFilters = document.querySelectorAll('.category-filter')
 
 // 3. Render Products Function
 function renderProducts(productsToRender) {
-  // TODO: Clear productGrid
-  // TODO: Loop through productsToRender
-  // TODO: Generate HTML for each product card
-  // TODO: Append to productGrid
+  if (!productGrid) return
+
+  productGrid.innerHTML = productsToRender.map(product => `
+    <article class="group rounded-xl border border-slate-200 bg-white p-3 transition-all duration-300 hover:-translate-y-1 hover:border-blue-400 hover:shadow-lg">
+      <div class="overflow-hidden rounded-lg bg-slate-100">
+        <img src="${ product.image }" alt="${ product.name }" class="aspect-[4/5] w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+      </div>
+      <div class="space-y-1 px-1 pb-2 pt-4">
+        <p class="text-[10px] font-black uppercase tracking-[0.15em] text-blue-600/70">${ product.category }</p>
+        <h2 class="text-sm font-bold text-slate-900">${ product.name }</h2>
+        <p class="text-[11px] font-medium text-slate-500">${ product.availability }</p>
+        <p class="pt-3 text-lg font-black text-slate-900">${ product.price.toLocaleString('sv-SE') } kr</p>
+      </div>
+    </article>
+  `).join('')
 }
 
 // 4. Add to Cart Function
