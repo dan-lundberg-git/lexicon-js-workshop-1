@@ -53,8 +53,29 @@ if (searchInput) {
 // Category Filters
 categoryFilters.forEach(filter => {
   filter.addEventListener('change', () => {
-    // TODO: Collect active categories
-    // TODO: Filter products and re-render
+    const allProductsFilter = Array.from(categoryFilters).find(categoryFilter => categoryFilter.value === 'all')
+
+    if (filter.value === 'all' && filter.checked) {
+      categoryFilters.forEach(categoryFilter => {
+        if (categoryFilter.value !== 'all') categoryFilter.checked = false
+      })
+    } else if (filter.value !== 'all' && filter.checked && allProductsFilter) {
+      allProductsFilter.checked = false
+    }
+
+    const selectedCategories = Array.from(categoryFilters)
+      .filter(categoryFilter => categoryFilter.checked && categoryFilter.value !== 'all')
+      .map(categoryFilter => categoryFilter.value)
+
+    if (selectedCategories.length === 0 && allProductsFilter) {
+      allProductsFilter.checked = true
+    }
+
+    const filteredProducts = selectedCategories.length
+      ? products.filter(product => selectedCategories.includes(product.category))
+      : products
+
+    renderProducts(filteredProducts)
   })
 })
 
