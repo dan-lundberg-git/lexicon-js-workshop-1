@@ -42,11 +42,27 @@ function updateCartCount() {
   // TODO: Show/hide cartCount based on items
 }
 
+function applyFilters() {
+  const searchTerm = searchInput?.value.trim().toLowerCase() || ''
+  const selectedCategories = Array.from(categoryFilters)
+    .filter(categoryFilter => categoryFilter.checked && categoryFilter.value !== 'all')
+    .map(categoryFilter => categoryFilter.value)
+
+  const filteredProducts = products.filter(product => {
+    const matchesCategory = selectedCategories.length === 0 || selectedCategories.includes(product.category)
+    const searchableText = product.name.toLowerCase()
+
+    return matchesCategory && searchableText.includes(searchTerm)
+  })
+
+  renderProducts(filteredProducts)
+}
+
 // 6. Event Listeners
 // Search
 if (searchInput) {
-  searchInput.addEventListener('input', (e) => {
-    // TODO: Filter products by name or description
+  searchInput.addEventListener('input', () => {
+    applyFilters()
   })
 }
 
@@ -63,19 +79,14 @@ categoryFilters.forEach(filter => {
       allProductsFilter.checked = false
     }
 
-    const selectedCategories = Array.from(categoryFilters)
-      .filter(categoryFilter => categoryFilter.checked && categoryFilter.value !== 'all')
-      .map(categoryFilter => categoryFilter.value)
+    const hasSelectedCategories = Array.from(categoryFilters)
+      .some(categoryFilter => categoryFilter.checked && categoryFilter.value !== 'all')
 
-    if (selectedCategories.length === 0 && allProductsFilter) {
+    if (!hasSelectedCategories && allProductsFilter) {
       allProductsFilter.checked = true
     }
 
-    const filteredProducts = selectedCategories.length
-      ? products.filter(product => selectedCategories.includes(product.category))
-      : products
-
-    renderProducts(filteredProducts)
+    applyFilters()
   })
 })
 
@@ -84,5 +95,5 @@ document.addEventListener('DOMContentLoaded', () => {
   // TODO: Load cart from localStorage
   // TODO: Update cart count UI
   // TODO: Render all products initially
-  renderProducts(products)
+  applyFilters()
 })

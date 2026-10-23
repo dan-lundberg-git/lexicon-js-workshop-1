@@ -76,7 +76,7 @@ Implement the search bar functionality to filter products by name or description
 ### Steps:
 1. Select the search input field.
 2. Add an `input` event listener.
-3. As the user types, filter the product array based on whether the `name` or `description` includes the search string (case-insensitive).
+3. As the user types, filter the product array based on whether the `name` includes the search string (case-insensitive).
 4. Update the UI using `renderProducts()`.
 
 ---
